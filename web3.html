@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Gears - We analyse, you decide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --accent-yellow: #FFD700;
+            --dark-bg: #0a0a0a;
+            --light-cream: #FFF8E7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(to bottom, var(--dark-bg), var(--primary-blue));
+            padding: 1.5rem 0;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            padding: 100px 0;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.85) 0%, rgba(0, 26, 51, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .team-avatars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 0;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004080 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-left: -15px;
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .avatar i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .stats-banner {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-bottom: 3rem;
+            font-size: 0.85rem;
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+        }
+
+        .stats-marquee {
+            display: inline-block;
+            animation: statsScroll 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes statsScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title .highlight {
+            color: var(--accent-yellow);
+        }
+
+        .btn-consultation {
+            background: var(--accent-yellow);
+            color: var(--primary-blue);
+            padding: 15px 40px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .btn-consultation:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            color: var(--accent-yellow);
+            font-size: 1.2rem;
+            margin-top: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Making Research Simple Section */
+        .research-section {
+            background: var(--light-cream);
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .section-title .highlight {
+            color: var(--primary-blue);
+        }
+
+        .question-tags {
+            position: relative;
+            margin-top: 3rem;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .marquee-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-row-1 {
+            animation: marqueeRight 30s linear infinite;
+        }
+
+        .marquee-row-2 {
+            animation: marqueeLeft 35s linear infinite;
+        }
+
+        .marquee-row-3 {
+            animation: marqueeRight 32s linear infinite;
+        }
+
+        @keyframes marqueeRight {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        @keyframes marqueeLeft {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-row::before,
+        .marquee-row::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .question-tags::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            background: linear-gradient(to right, var(--light-cream) 0%, transparent 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .question-tags::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            background: linear-gradient(to left, var(--light-cream) 0%, transparent 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .question-tag {
+            background: #4A90E2;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .feature-text {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--primary-blue);
+            color: white;
+            padding: 100px 0;
+        }
+
+        .about-title {
+            color: var(--accent-yellow);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .company-name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .company-name .highlight {
+            color: var(--accent-yellow);
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-yellow);
+            color: var(--primary-blue);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .company-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span style="color: var(--accent-yellow); font-weight: 700; font-size: 1.5rem;">
+                    <i class="fas fa-cube"></i> Research Gears<sup>®</sup>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-business-meeting-brainstorming-4870-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container text-center position-relative" style="z-index: 2;">
+            <div class="team-avatars">
+                <div class="avatar"><i class="fas fa-user"></i></div>
+                <div class="avatar"><i class="fas fa-user"></i></div>
+                <div class="avatar"><i class="fas fa-user"></i></div>
+                <div class="avatar"><i class="fas fa-user"></i></div>
+                <div class="avatar"><i class="fas fa-user"></i></div>
+            </div>
+            
+            <div class="stats-banner">
+                <div class="stats-marquee">
+                    <span><i class="fas fa-flask"></i> <strong>350+ RESEARCH PROJECTS COMPLETED</strong></span>
+                    <span style="margin-left: 50px;"><i class="fas fa-lightbulb"></i> <strong>50+ INNOVATIVE SOLUTIONS DEVELOPED</strong></span>
+                    <span style="margin-left: 50px;"><i class="fas fa-flask"></i> <strong>350+ RESEARCH PROJECTS COMPLETED</strong></span>
+                    <span style="margin-left: 50px;"><i class="fas fa-lightbulb"></i> <strong>50+ INNOVATIVE SOLUTIONS DEVELOPED</strong></span>
+                </div>
+            </div>
+            
+            <h1 class="hero-title">
+                We <span class="highlight">analyse</span>, you<br>
+                <span class="highlight">decide</span> - that's the deal
+            </h1>
+            
+            <button class="btn btn-consultation">
+                Book Consultation <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+            
+            <p class="hero-subtitle">
+                Behind every smart decision is strong research.<br>
+                We're here to collect, analyze, and guide; so you can<br>
+                focus on achieving more.
+            </p>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="research-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    Making <span class="highlight">research</span> simple,<br>
+                    so results come faster.
+                </h2>
+                <p class="lead text-muted">
+                    Whether it's research, strategy, or building smart systems,<br>
+                    we remove the guesswork. Our team turns data into insights,<br>
+                    ideas into solutions, and challenges into opportunities.
+                </p>
+            </div>
+            
+            <div class="question-tags">
+                <!-- Row 1 - Moving Right to Left -->
+                <div class="marquee-row marquee-row-1">
+                    <div class="question-tag">What's the best research methodology?</div>
+                    <div class="question-tag">How do I design a strong research proposal?</div>
+                    <div class="question-tag">How do I build a strong brand?</div>
+                    <div class="question-tag">What's the best research methodology?</div>
+                    <div class="question-tag">How do I design a strong research proposal?</div>
+                    <div class="question-tag">How do I build a strong brand?</div>
+                </div>
+                
+                <!-- Row 2 - Moving Left to Right -->
+                <div class="marquee-row marquee-row-2">
+                    <div class="question-tag">What's the best method for my study?</div>
+                    <div class="question-tag">How do I prepare a full research report?</div>
+                    <div class="question-tag">What's the best way to collect data?</div>
+                    <div class="question-tag">What's the best method for my study?</div>
+                    <div class="question-tag">How do I prepare a full research report?</div>
+                    <div class="question-tag">What's the best way to collect data?</div>
+                </div>
+                
+                <!-- Row 3 - Moving Right to Left -->
+                <div class="marquee-row marquee-row-3">
+                    <div class="question-tag">How do I design a custom business system?</div>
+                    <div class="question-tag">How do I design a strong research proposal?</div>
+                    <div class="question-tag">What's the best research methodology?</div>
+                    <div class="question-tag">How do I design a custom business system?</div>
+                    <div class="question-tag">How do I design a strong research proposal?</div>
+                    <div class="question-tag">What's the best research methodology?</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="25" cy="25" r="15" fill="#003366"/>
+                                <circle cx="75" cy="25" r="15" fill="#003366"/>
+                                <circle cx="25" cy="75" r="15" fill="#003366"/>
+                                <circle cx="75" cy="75" r="15" fill="#003366"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">We make things simple</h3>
+                        <p class="feature-text">No confusion, no overwhelming data; just clear insights and guidance that let you understand and act with confidence.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#003366" stroke-width="3"/>
+                                <circle cx="50" cy="50" r="30" fill="none" stroke="#003366" stroke-width="3"/>
+                                <circle cx="50" cy="50" r="20" fill="none" stroke="#003366" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">We focus on real results</h3>
+                        <p class="feature-text">From business plans to market moves, we break it down into steps you can follow and achieve real results.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="35" fill="none" stroke="#003366" stroke-width="3"/>
+                                <path d="M50 15 L50 50 L75 50" stroke="#003366" stroke-width="3" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">We know what works</h3>
+                        <p class="feature-text">With years of hands-on experience across industries, we bring proven strategies and practical solutions to the table.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 100 100">
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="#003366" stroke-width="3"/>
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="#003366" stroke-width="3"/>
+                                <circle cx="50" cy="50" r="25" fill="none" stroke="#003366" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">With you all the way</h3>
+                        <p class="feature-text">Not just softwares, automation and cloud solutions, but how we design smart tools that simplify your work and boost impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="about-title">■ ABOUT OUR COMPANY</p>
+                    <h2 class="company-name">
+                        We're <span class="highlight">Research<br>Gears.</span>
+                    </h2>
+                </div>
+                <div class="col-md-6">
+                    <p class="lead">
+                        Since our founding, we've guided countless businesses, startups, and professionals to success through innovative solutions and smart strategies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Button -->
+    <div class="chat-button">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
